@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo 'launch'
+echo 'cpu-temp'
+echo 'commands'
+
+read command
+
+$command

@@ -1,0 +1,7 @@
+#!/bin/bash
+echo ----------------------------------------------
+sensors | grep -i 'temp1'
+echo -----------------------------------------------
+upower -i $(upower -e | grep 'BAT') | grep -E "state|to\ full|percentage"
+echo -----------------------------------------------
+echo 'Finished'

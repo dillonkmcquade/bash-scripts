@@ -1,0 +1,88 @@
+#!/bin/bash
+echo 'Beginning installscript............'
+echo 'Enabling repositories......'
+#Enable RPM Fusion repositories
+sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+#Enable flatpak repository
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+echo 'Downloading programs......'
+#Download brave browser
+sudo dnf install dnf-plugins-core
+sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
+sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+sudo dnf install brave-browser
+
+#Download Visual Studio Code
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+sudo dnf check-update
+sudo dnf install code
+
+#download Tweaks
+sudo dnf install gnome-tweaks
+
+#Download VIm
+sudo dnf install vim
+
+#Download Terminator
+sudo dnf install terminator
+
+#Download BitWarden
+flatpak install flathub com.bitwarden.desktop
+
+#Download Steam
+flatpak install flathub com.valvesoftware.Steam
+
+#Download Inkscape
+flatpak install flathub org.inkscape.Inkscape
+
+#Download Discord
+flatpak install flathub com.discordapp.Discord
+
+#Download VLC
+flatpak install flathub org.videolan.VLC
+
+#Download Yarn
+curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
+sudo dnf install yarn
+
+#Download NVM for node
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+
+#Download latest version of node
+nvm install node
+
+#Download Thunderbird
+sudo dnf install thunderbird thunderbird-enigmail
+
+#Download Docker-ce and Docker-compose
+sudo dnf config-manager \
+    --add-repo \
+    https://download.docker.com/linux/fedora/docker-ce.repo
+sudo dnf install docker-ce docker-ce-cli containerd.io
+sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+echo 'update CGroups if running fedora 31'
+
+#Install TLP
+sudo dnf install tlp tlp-rdw
+sudo tlp start
+
+#Creating home folders
+echo 'creating directories......'
+mkdir ~/Documents/programming
+mkdir ~/bin
+mkdir ~/Documents/Professional Documents/
+
+
+#Update packages
+echo 'Updating system'
+sudo dnf update
+
+#Reboot system
+echo 'Don't forget to install zsh/oh-my-zsh, slack, virtualbox, configure git'
+read 'Press enter to reboot..'
+reboot
+ 

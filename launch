@@ -1,0 +1,14 @@
+#!/bin/bash
+
+echo 'What project would you like to launch?'
+read -r proj
+echo 'NPM or Yarn?'
+read -r pkg
+
+cd ~/Documents/programming/$proj
+code .
+$pkg start
+
+
+
+
