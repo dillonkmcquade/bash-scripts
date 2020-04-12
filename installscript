@@ -1,4 +1,12 @@
 #!/bin/bash
+
+#
+# This script is for automating installation of programs and repositories for Fedora and 
+# speeding up the uptime on a fresh install. 
+# Check comments for optional installs.
+# 
+
+
 echo 'Beginning installscript............'
 echo 'Enabling repositories......'
 #Enable RPM Fusion repositories
@@ -9,7 +17,7 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 
 echo 'Downloading programs......'
 #Download brave browser
-sudo dnf install dnf-plugins-core
+sudo dnf install -y dnf-plugins-core
 sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
 sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
 sudo dnf install -y brave-browser
@@ -79,6 +87,12 @@ mkdir ~/Documents/Professional Documents/
 #Update packages
 echo 'Updating system'
 sudo dnf update
+
+echo 'Configuring git credentials'
+echo 'enter email'
+read email
+git config --global user.email "$email"
+git config --global user.name "McQuade, Dillon"
 
 #Reboot system
 echo 'Don't forget to install zsh/oh-my-zsh, slack, virtualbox, configure git'
