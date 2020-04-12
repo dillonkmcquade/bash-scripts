@@ -86,7 +86,7 @@ mkdir ~/Documents/Professional Documents/
 
 #Update packages
 echo 'Updating system'
-sudo dnf update
+sudo dnf -y update
 
 echo 'Configuring git credentials'
 echo 'enter email'
@@ -95,7 +95,8 @@ git config --global user.email "$email"
 git config --global user.name "McQuade, Dillon"
 
 #Reboot system
-echo 'Don't forget to install zsh/oh-my-zsh, slack, virtualbox, configure git'
-read 'Press enter to reboot..'
+echo 'Dont forget to install zsh/oh-my-zsh, slack, virtualbox, configure git'
+read 'Press enter to reboot'
+
 reboot
  
