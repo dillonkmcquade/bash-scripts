@@ -1,10 +1,10 @@
 #!/bin/bash
 
 #
-# This script is for automating installation of programs and repositories for Fedora and 
-# speeding up the uptime on a fresh install. 
+# This script is for automating installation of programs and repositories for Fedora and
+# speeding up the uptime on a fresh install.
 # Check comments for optional installs.
-# 
+#
 
 
 echo 'Beginning installscript............'
@@ -27,6 +27,9 @@ sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
 sudo dnf check-update
 sudo dnf install -y code
+
+#Download NetBeans
+flatpak install -y flathub org.apache.netbeans
 
 #download Tweaks
 #sudo dnf install gnome-tweaks
@@ -65,6 +68,9 @@ nvm install -y node
 #Download Thunderbird
 sudo dnf install -y thunderbird thunderbird-enigmail
 
+#Install Clang/gcc-g++
+sudo dnf install -y clang gcc-c++
+
 #Download Docker-ce and Docker-compose
 #sudo dnf config-manager \
 #    --add-repo \
@@ -99,4 +105,4 @@ echo 'Dont forget to install zsh/oh-my-zsh, slack, virtualbox, configure git'
 read 'Press enter to reboot'
 
 reboot
- 
+
