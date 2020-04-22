@@ -28,17 +28,9 @@ sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.m
 sudo dnf check-update
 sudo dnf install -y code
 
-#Download NetBeans
-flatpak install -y flathub org.apache.netbeans
-
-#download Tweaks
-#sudo dnf install gnome-tweaks
 
 #Download VIm
 sudo dnf install -y vim
-
-#Download Terminator
-sudo dnf install -y terminator
 
 #Download BitWarden
 flatpak install -y flathub com.bitwarden.desktop
@@ -54,6 +46,10 @@ flatpak install -y flathub com.discordapp.Discord
 
 #Download VLC
 flatpak install -y flathub org.videolan.VLC
+
+#Download Spotify
+flatpak install -y flathub com.spotify.Client
+
 
 #Download Yarn
 curl --silent --location https://dl.yarnpkg.com/rpm/yarn.repo | sudo tee /etc/yum.repos.d/yarn.repo
@@ -102,6 +98,7 @@ git config --global user.name "McQuade, Dillon"
 
 #Reboot system
 echo 'Dont forget to install zsh/oh-my-zsh, slack, virtualbox, configure git'
+echo 'And JetBrains ToolBox!'
 read 'Press enter to reboot'
 
 reboot
