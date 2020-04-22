@@ -86,6 +86,9 @@ mkdir ~/Documents/programming
 #mkdir ~/bin
 mkdir ~/Documents/Professional Documents/
 
+#Set gtk-theme to dark
+gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
+
 #Update packages
 echo 'Updating system'
 sudo dnf -y update
