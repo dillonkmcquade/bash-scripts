@@ -1,0 +1,25 @@
+#!/usr/bin/python
+from argparse import ArgumentParser
+
+parser = ArgumentParser(description="Scan a file for a word")
+parser.add_argument("-f", "--file", help="Relative path to file in .txt format")
+parser.add_argument("-i", "--input", help="Word to be searched")
+args = parser.parse_args()
+
+
+def check(word, file):
+    """Scans a file for a word, returns boolean"""
+    count = 0
+    with open(file) as datafile:
+        for line in datafile:
+            if word in line:
+                print(word)
+                count = count + 1
+    
+    print(f'{count} cases of {args.input} found.')
+
+
+check(args.input, args.file)
+
+
+
