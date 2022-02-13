@@ -1,0 +1,67 @@
+#!/bin/sh
+
+DATE=$(date +%Y-%m-%d-%H:%M:%S)
+SOURCE="/home/$USER "
+#directories to ignore, add or remove to customize
+EXCLUDE="--exclude=/home/$USER/.cache 
+--exclude=/home/$USER/VirtualBox* 
+--exclude=/home/$USER/.var 
+--exclude=/home/$USER/.android 
+--exclude=/home/$USER/Downloads 
+--exclude=/home/$USER/.zoom  
+--exclude=/home/$USER/.src 
+--exclude=/home/$USER/config-files "
+
+#Script starts here
+echo $DATE
+read -p "Start backup now? [y/N]: " startt
+if [ "$startt" != "y" ]; then 
+        echo 'Exiting backup...'
+        sleep 1
+        exit
+fi
+read -p "Please enter the destination directory: " DESTINATION
+        #Determine if destination directory exists, makes one if not
+if [ ! -d "$DESTINATION" ]; then
+        read -p "Destination does not exist. Make directory '$DESTINATION'? [y/N]: " make_dir
+        if [ "$make_dir" == "y" ]; then
+                mkdir $DESTINATION
+                echo "Created directory: '$DESTINATION'"; else
+                        echo 'No destination selected, exiting program.'
+                        sleep 1
+                        exit
+        fi
+fi
+
+
+echo "Backing up files to: '$DESTINATION'"
+sleep 2
+read -p "Backup is set to archive files from the '$SOURCE' directory. Is this okay? [y/N]: " yesno
+
+
+
+
+#Set new source directory and run tar 
+if [ "$yesno" != "y" ]
+then
+        read -p "Please enter the new source directory: " new_source
+        if [ ! -d $new_source ]; then
+                echo 'Error: Directory does not exist. Exiting'
+                sleep 2
+        fi
+
+        read -p "Backing up '$new_source'? [y/N]: " yesorno
+        if [ "$yesorno" != "y" ]
+        then
+                exit
+        fi
+        SOURCE="$new_source "
+        echo "Backing up '$SOURCE' to '$DESTINATION'"
+        sudo tar $EXCLUDE -cvzpf $DESTINATION/backup-$DATE.tar.gz $SOURCE
+else
+        echo "Backing up '$SOURCE' to '$DESTINATION'"
+        sudo tar $EXCLUDE -cvzpf $DESTINATION/backup-$DATE.tar.gz $SOURCE
+fi
+
+
+
